@@ -1,5 +1,6 @@
 ---
 title: "Lab 02 - Global plastic waste"
+Author: "Moriah Ruggerio"
 output: 
   tufte::tufte_html:
     tufte_variant: "envisioned"
@@ -75,13 +76,20 @@ The variable descriptions are as follows:
 # Warm up
 
 -   Recall that RStudio is divided into four panes. Without looking, can you name them all and briefly describe their purpose?
+
+The Console runs R and is in the bottom left. The bottom right is the Output pane and gives a preview of the created html document as well as help and shows the associated files. The top left is the Source and it is for writing the code. The Environment pane is in the top right and shows what objects are part of the working space and its history.
+
 -   Verify that the dataset has loaded into the Environment. How many observations are in the dataset? Clicking on the dataset in the Environment will allow you to inspect it more carefully. Alternatively, you can type `View(plastic_waste)` into the Console to do this.
+
+There are 240 observations.
 
 ```{marginfigure}
 **Hint:** If you're not sure, run the command `?NA` which will lead you to the documentation.
 ```
 
 -   Have a quick look at the data and notice that there are cells taking the value `NA` -- what does this mean?
+
+`NA` means that there is no value imputed for that cell.
 
 # Exercises
 
