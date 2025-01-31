@@ -290,7 +290,7 @@ plastic_waste %>%
 
     Do either of these pairs of variables appear to be more strongly linearly associated?
 
-If any, coastal population appears slightly stronger linear association. However, neighther appear to 
+If any, coastal population appears to have a slightly stronger linear association as it appears to more closely match a line. However, neither appear to truly be strongly linearly associated.
 
 🧶 ✅ ⬆️ *Now is another good time to knit your document and commit and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
@@ -323,6 +323,23 @@ plastic_waste %>%
          subtitle = "by continent") +
     theme_minimal()
 ```
+
+```{r recreated_graph, eval=TRUE}
+plastic_waste %>% 
+  mutate(coastal_pop_prop = coastal_pop / total_pop) %>%
+  filter(plastic_waste_per_cap < 3) %>%
+  ggplot(aes(x = coastal_pop_prop, y = plastic_waste_per_cap, color = continent)) + 
+    geom_point() +
+    geom_smooth(color = "black") +
+    scale_color_viridis_d() +
+    labs(x = "Coastal population proportion (Coastal / total population)", 
+         y = "Plastic waste per capita ", 
+         color = "Continent",
+         title = "Plastic waste vs. coastal population proportion",
+         subtitle = "by continent") +
+    theme_minimal()
+```
+Plastic waster per capita sharp increases up to ~0.7 Coastal population proportion. The growth slows and then starts to decrease after 1. When less of the population is coastal it has a greater affect on the plastic waste per capita.
 
 🧶 ✅ ⬆️ Knit, *commit, and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards and review the md document on GitHub to make sure you're happy with the final state of your work.*
 
