@@ -187,28 +187,110 @@ ggplot(data = plastic_waste,
 
 And yet another way to visualize this relationship is using side-by-side box plots.
 
-```{r plastic_waste_per_cap-box}
+```{r plastic_waste_per_cap-box, eval=TRUE}
 ggplot(data = plastic_waste, 
        mapping = aes(x = continent, 
                      y = plastic_waste_per_cap)) +
-  geom_boxplot()
+  geom_boxplot() +
+  labs(
+    title = "Plastic Waste per Capita",
+    x = "Continent", y = "Plastic Waste per Capita (daily kg/person)")
 ```
 
 1.  Convert your side-by-side box plots from the previous task to [violin plots](http://ggplot2.tidyverse.org/reference/geom_violin.html). What do the violin plots reveal that box plots do not? What features are apparent in the box plots but not in the violin plots?
+
+```{r plastic_waste_per_cap-violin, eval=TRUE}
+ggplot(data = plastic_waste, 
+       mapping = aes(x = continent, 
+                     y = plastic_waste_per_cap)) +
+  geom_violin() +
+  labs(
+    title = "Plastic Waste per Capita",
+    x = "Continent", y = "Plastic Waste per Capita (daily kg/person)")
+```
+
+Unlike in the box plots, violin plots show the mode or where the most amount of values are. The distribution of countries is easier to visualize with the violin plots. The box plots, however, show the median and IQR of the data which is missed in the violin plots. They also better show the unusualness of some of the data points(such as Trinidad and Tobago). With an even larger data set, the violin plots could make it look like there were points in between.
 
 ```{marginfigure}
 **Remember:** We use `geom_point()` to make scatterplots.
 ```
 
 1.  Visualize the relationship between plastic waste per capita and mismanaged plastic waste per capita using a scatterplot.
+
+```{r plastic_waste_and_missmanaged, eval=TRUE}
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     y = mismanaged_plastic_waste_per_cap)) +
+  geom_point(color = "blue", alpha = 0.20) +
+  labs(
+    title = "Plastic Waste and Mismanaged Plastic Waste per Capita",
+    x = "Plastic Waste per Capita", y = "Mismanaged Plastic Waste per Capita")
+
+plastic_waste %>%
+  filter(mismanaged_plastic_waste_per_cap > 0.2)
+```
     Describe the relationship.
+    
+There is a positive relationship between plastic waste per capita and mismanaged plastic waste per capita. As plastic waste increase, so does mismanaged plastic waste. However, it is not perfectly linear, and rather creates a fan shape as the values increase.
 
 2.  Colour the points in the scatterplot by continent.
+
+```{r plastic_waste_and_missmanaged-continent, eval=TRUE}
+ggplot(data = plastic_waste, 
+       mapping = aes(x = plastic_waste_per_cap, 
+                     y = mismanaged_plastic_waste_per_cap, color = continent)) +
+  geom_point(alpha = 0.50) +
+  labs(
+    title = "Plastic Waste and Mismanaged Plastic Waste per Capita",
+    x = "Plastic Waste per Capita", y = "Mismanaged Plastic Waste per Capita", color = "Continent")
+```
+
     Does there seem to be any clear distinctions between continents with respect to how plastic waste per capita and mismanaged plastic waste per capita are associated?
+    
+Yes, there are some trends in the association between plastic waste per capita and mismanaged plastic waste per capita. Africa and and Oceania have a very steep curve to the relationship, while Europe is much more mild. Asia, South America, and North America are somewhere in the middle of the two extremes.
 
 3.  Visualize the relationship between plastic waste per capita and total population as well as plastic waste per capita and coastal population.
     You will need to make two separate plots.
+
+```{r plastic_waste_total_pop-coastal_pop, eval=TRUE}
+plastic_waste %>%
+  #filter(plastic_waste_per_cap < 3) %>%
+  ggplot(aes(x = total_pop, y = plastic_waste_per_cap)) +
+  geom_point(color = "blue", alpha = 0.20) +
+  labs(
+    title = "Plastic Waste per Capita and Total Population",
+    x = "Total Population", y = "Plastic Waste per Capita (daily kg/person")
+
+plastic_waste %>%
+  #filter(plastic_waste_per_cap < 3) %>%
+  ggplot(aes(x = coastal_pop, y = plastic_waste_per_cap)) +
+  geom_point(color = "green", alpha = 0.20) +
+  labs(
+    title = "Plastic Waste per Capita and Coastal Population",
+    x = "Plastic Waste per Capita (daily kg/person", y = "Costal Population")
+
+#Filtered out Trinidad and Tobago so that the points can be seen better.
+
+plastic_waste %>%
+  filter(plastic_waste_per_cap < 3) %>%
+  ggplot(aes(x = total_pop, y = plastic_waste_per_cap)) +
+  geom_point(color = "blue", alpha = 0.20) +
+  labs(
+    title = "Plastic Waste per Capita and Total Population",
+    x = "Total Population", y = "Plastic Waste per Capita (daily kg/person")
+
+plastic_waste %>%
+  filter(plastic_waste_per_cap < 3) %>%
+  ggplot(aes(x = coastal_pop, y = plastic_waste_per_cap)) +
+  geom_point(color = "green", alpha = 0.20) +
+  labs(
+    title = "Plastic Waste per Capita and Coastal Population",
+    x = "Plastic Waste per Capita (daily kg/person", y = "Costal Population")
+```
+
     Do either of these pairs of variables appear to be more strongly linearly associated?
+
+If any, coastal population appears slightly stronger linear association. However, neighther appear to 
 
 🧶 ✅ ⬆️ *Now is another good time to knit your document and commit and push your changes to GitHub with an appropriate commit message. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
